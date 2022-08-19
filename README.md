@@ -1,3 +1,6 @@
+# Wise note
+Library was extended to allow interpretation in empty context
+
 # Sval
 
 [![npm](https://img.shields.io/npm/v/sval.svg?style=flat-square)](https://www.npmjs.com/package/sval)

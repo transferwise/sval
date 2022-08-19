@@ -9,7 +9,8 @@ import evaluate from './evaluate_n'
 
 export interface SvalOptions {
   ecmaVer?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 2015 | 2016 | 2017 | 2018 | 2019
-  sandBox?: boolean
+  sandBox?: boolean,
+  emptySandBox?: boolean,
 }
 
 class Sval {
@@ -21,7 +22,7 @@ class Sval {
   exports: { [name: string]: any } = {}
 
   constructor(options: SvalOptions = {}) {
-    let { ecmaVer = 9, sandBox = true } = options
+    let { ecmaVer = 9, sandBox = true, emptySandBox = false } = options
 
     ecmaVer -= ecmaVer < 2015 ? 0 : 2009 // format ecma edition
 
@@ -31,7 +32,11 @@ class Sval {
 
     this.options.ecmaVersion = ecmaVer as Options['ecmaVersion']
 
-    if (sandBox) {
+    if (emptySandBox) {
+      const win = {}
+      this.scope.let('window', win)
+      this.scope.let('this', win)
+    } else if (sandBox) {
       // Shallow clone to create a sandbox
       const win = createSandBox()
       this.scope.let('window', win)

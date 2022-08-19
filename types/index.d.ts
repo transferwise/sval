@@ -2,6 +2,7 @@ import { Node, Program } from 'estree';
 export interface SvalOptions {
     ecmaVer?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 2015 | 2016 | 2017 | 2018 | 2019;
     sandBox?: boolean;
+    emptySandBox?: boolean;
 }
 declare class Sval {
     static version: string;

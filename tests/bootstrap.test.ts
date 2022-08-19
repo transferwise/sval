@@ -54,6 +54,23 @@ describe('testing src/index.ts', () => {
     expect((window as any).y2).toBeUndefined()
   })
 
+  it('should support empty sandbox mode', () => {
+    const interpreter = new Sval({
+      emptySandBox: true
+    })
+
+    let error = null
+    try {
+      interpreter.run(`
+      setTimeout
+    `)
+    } catch (ex) {
+      error = ex
+    }
+
+    expect(error).toBeInstanceOf(ReferenceError)
+  })
+
   it('should support ecma version 3, 5, 6, 7, 8, 9, 10', () => {
     const versions = [3, 5, 6, 7, 8, 9, 10, 2015, 2016, 2017, 2018, 2019]
     versions.forEach((v: SvalOptions['ecmaVer']) => new Sval({ ecmaVer: v }))

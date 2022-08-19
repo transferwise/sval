@@ -3968,13 +3968,18 @@
           this.options = {};
           this.scope = new Scope(null, true);
           this.exports = {};
-          var _a = options.ecmaVer, ecmaVer = _a === void 0 ? 9 : _a, _b = options.sandBox, sandBox = _b === void 0 ? true : _b;
+          var _a = options.ecmaVer, ecmaVer = _a === void 0 ? 9 : _a, _b = options.sandBox, sandBox = _b === void 0 ? true : _b, _c = options.emptySandBox, emptySandBox = _c === void 0 ? false : _c;
           ecmaVer -= ecmaVer < 2015 ? 0 : 2009;
           if ([3, 5, 6, 7, 8, 9, 10].indexOf(ecmaVer) === -1) {
               throw new Error("unsupported ecmaVer");
           }
           this.options.ecmaVersion = ecmaVer;
-          if (sandBox) {
+          if (emptySandBox) {
+              var win = {};
+              this.scope.let('window', win);
+              this.scope.let('this', win);
+          }
+          else if (sandBox) {
               var win = createSandBox();
               this.scope.let('window', win);
               this.scope.let('this', win);
