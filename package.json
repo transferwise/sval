@@ -44,5 +44,6 @@
     "rollup-plugin-uglify": "^6.0.4",
     "typescript": "^3.8.3",
     "umi-test": "^1.9.6"
-  }
+  },
+  "packageManager": "pnpm@10.33.0"
 }
